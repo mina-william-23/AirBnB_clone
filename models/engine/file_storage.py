@@ -13,12 +13,12 @@ class FileStorage:
 
     def all(self):
         """ return dictionary of all objects in __objects """
-        return __class__.__name__.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """ append obj to __objects """
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        __class__.__name__.__objects[key] = obj.to_dict()
+        FileStorage.__objects[key] = obj.to_dict()
 
     def save(self):
         """ serliaze __objects to file path """
