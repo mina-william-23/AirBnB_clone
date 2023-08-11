@@ -4,12 +4,15 @@
 
 import json
 
+
 class FileStorage:
-    """ class FileStorage that serializes instances to a JSON file and deserializes JSON file to instances """
+    """
+    class FileStorage that serializes instances to a JSON
+    file and deserializes JSON file to instances
+    """
 
     __file_path = "file.json"
     __objects = {}
-
 
     def all(self):
         """ return dictionary of all objects in __objects """
@@ -32,8 +35,3 @@ class FileStorage:
                 FileStorage.__objects = json.load(f)
         except Exception:
             pass
-
-
-
-        
-

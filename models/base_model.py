@@ -6,6 +6,7 @@ from uuid import uuid4
 from datetime import datetime
 from . import storage
 
+
 class BaseModel:
     """
     class BaseModel that defines all common attributes
