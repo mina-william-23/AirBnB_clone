@@ -4,7 +4,7 @@
 
 import json
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     """
@@ -35,6 +35,6 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:
                 dc = json.load(f)
-                FileStorage.__objects = {key:BaseModel(**value) for key, value in dc.items()}
+                FileStorage.__objects = {key:eval(value['__class__'])(**value) for key, value in dc.items()}
         except Exception:
             pass

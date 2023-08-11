@@ -3,12 +3,13 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 import models
 
 
+valid_classes = ["BaseModel", "User"]
 class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
-
     def __init__(self):
         """ HBNB constructor """
         super().__init__()
@@ -34,10 +35,10 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of BaseModel"""
         if not obj_name:
             print("** class name missing **")
-        elif obj_name != "BaseModel":
+        elif obj_name not in valid_classes:
             print("** class doesn't exist **")
         else:
-            instance = BaseModel()
+            instance = globals()[obj_name]()
             instance.save()
             print(instance.id)
 
@@ -50,11 +51,11 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
         elif len(args) == 1:
-            if args[0] == "BaseModel":
+            if args[0] in valid_classes:
                 print("** instance id missing **")
             else:
                 print("** class doesn't exist **")
-        elif len(args) == 2 and args[0] == "BaseModel":
+        elif len(args) == 2 and args[0] in valid_classes:
             key = ".".join(args)
             dc = models.storage.all()
             if dc[key]:
@@ -68,11 +69,11 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
         elif len(args) == 1:
-            if args[0] == "BaseModel":
+            if args[0] in valid_classes:
                 print("** instance id missing **")
             else:
                 print("** class doesn't exist **")
-        elif len(args) == 2 and args[0] == "BaseModel":
+        elif len(args) == 2 and args[0] in valid_classes:
             key = ".".join(args)
             dc = models.storage.all()
             if key in dc:
@@ -90,10 +91,10 @@ class HBNBCommand(cmd.Cmd):
             dc = models.storage.all()
             li = [value.__str__() for value in dc.values()]
             print(li)
-        elif len(line) == 1:
-            if line == "BaseModel":
+        else:
+            if line in valid_classes:
                 dc = models.storage.all()
-                li = [value.__str__() for value in dc.values()]
+                li = [value.__str__() for value in dc.values() if value.__class__.__name__ == line]
                 print(li)
             else:
                 print("** class doesn't exist **")
@@ -105,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
         elif length == 1:
-            if args[0] == "BaseModel":
+            if args[0] in valid_classes:
                 print("** instance id missing **")
             else:
                 print("** class doesn't exist **")
