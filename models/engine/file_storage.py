@@ -3,6 +3,7 @@
 
 
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -21,17 +22,19 @@ class FileStorage:
     def new(self, obj):
         """ append obj to __objects """
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj.to_dict()
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """ serliaze __objects to file path """
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(FileStorage.__objects, f)
+            dc = {key:value.to_dict() for key, value in FileStorage.__objects.items()}
+            json.dump(dc, f)
 
     def reload(self):
         """ deserialize from file path into __objects """
         try:
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:
-                FileStorage.__objects = json.load(f)
+                dc = json.load(f)
+                FileStorage.__objects = {key:BaseModel(**value) for key, value in dc.items()}
         except Exception:
             pass
