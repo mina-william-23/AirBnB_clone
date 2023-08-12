@@ -16,11 +16,11 @@ class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
     valid_classes = ["BaseModel", "User", "Place",
                      "State", "Amenity", "Review", "City"]
-
-    def __init__(self):
-        """ HBNB constructor """
-        super().__init__()
-        self.prompt = '(hbnb) '
+    prompt = '(hbnb) '
+    # def __init__(self):
+    #     """ HBNB constructor """
+    #     super().__init__()
+    #     self.prompt = '(hbnb) '
 
     def do_EOF(self, line):
         """ EOF function """
