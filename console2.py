@@ -53,15 +53,16 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of
         an instance based on the class name and id
         """
-        args = line.split()
-        if not args:
+        if not line:
             print("** class name missing **")
+            return
+
+        args = line.split(' ')
+        if args[0] not in valid_classes:
+            print("** class doesn't exist **")
         elif len(args) == 1:
-            if args[0] in valid_classes:
-                print("** instance id missing **")
-            else:
-                print("** class doesn't exist **")
-        elif  args[0] in valid_classes:
+            print("** instance id missing **")
+        elif args[0] in valid_classes:
             key = ".".join([args[0], args[1]])
             dc = models.storage.all()
             if key in dc:
@@ -74,12 +75,13 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if not args:
             print("** class name missing **")
-        elif len(args) == 1:
-            if args[0] in valid_classes:
-                print("** instance id missing **")
-            else:
+            return
+
+        if args[0] not in valid_classes:
                 print("** class doesn't exist **")
-        elif len(args) == 2 and args[0] in valid_classes:
+        elif len(args) == 1:
+                print("** instance id missing **")
+        elif args[0] in valid_classes:
             key = ".".join(args)
             dc = models.storage.all()
             if key in dc:
