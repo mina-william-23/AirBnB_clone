@@ -34,8 +34,7 @@ class BaseModel:
 
     def to_dict(self):
         """ convert attributes to dictionary key-value """
-        #dc = self.__dict__.copy()
-        dc = {key:value for key, value in self.__dict__.items() if value}
+        dc = {key: value for key, value in self.__dict__.items() if value}
         dc['__class__'] = self.__class__.__name__
         dc['created_at'] = self.created_at.isoformat()
         dc['updated_at'] = self.updated_at.isoformat()
@@ -47,5 +46,5 @@ class BaseModel:
         [<class name>] (<self.id>) <self.__dict__>
         """
         class_name = self.__class__.__name__
-        dc = {key:value for key, value in self.__dict__.items() if value}
+        dc = {key: value for key, value in self.__dict__.items() if value}
         return "[{}] ({}) {}".format(class_name, self.id, dc)

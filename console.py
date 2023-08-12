@@ -6,8 +6,9 @@ from models.base_model import BaseModel
 from models.user import User
 import models
 
-
 valid_classes = ["BaseModel", "User"]
+
+
 class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
     def __init__(self):
@@ -58,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 2 and args[0] in valid_classes:
             key = ".".join(args)
             dc = models.storage.all()
-            if dc[key]:
+            if key in dc:
                 print(dc[key])
             else:
                 print("** no instance found **")
@@ -94,7 +95,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             if line in valid_classes:
                 dc = models.storage.all()
-                li = [value.__str__() for value in dc.values() if value.__class__.__name__ == line]
+                li = []
+                for value in dc.values():
+                    if value.__class__.__name__ == line:
+                        li.append(value.__str__())
                 print(li)
             else:
                 print("** class doesn't exist **")

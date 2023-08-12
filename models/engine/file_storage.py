@@ -6,6 +6,7 @@ import json
 from models.base_model import BaseModel
 from models.user import User
 
+
 class FileStorage:
     """
     class FileStorage that serializes instances to a JSON
@@ -27,7 +28,9 @@ class FileStorage:
     def save(self):
         """ serliaze __objects to file path """
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as f:
-            dc = {key:value.to_dict() for key, value in FileStorage.__objects.items()}
+            dc = {}
+            for key, value in FileStorage.__objects.items():
+                dc[key] = value.to_dict()
             json.dump(dc, f)
 
     def reload(self):
@@ -35,6 +38,8 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:
                 dc = json.load(f)
-                FileStorage.__objects = {key:eval(value['__class__'])(**value) for key, value in dc.items()}
+                obj = FileStorage.__objects
+                for key, value in dc.items():
+                    obj[key] = eval(value['__class__'])(**value)
         except Exception:
             pass
