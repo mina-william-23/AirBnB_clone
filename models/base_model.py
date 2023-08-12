@@ -67,3 +67,14 @@ class BaseModel:
         dc = models.storage.all()
         li = [value.__str__() for value in dc.values() if value.__class__.__name__ == name]
         print(li)
+
+    @classmethod
+    def show(cls, id):
+        """show the object.__str__ by id"""
+        name = cls.__name__
+        key = ".".join([name, id])
+        dc = models.storage.all()
+        if dc[key]:
+            print(dc[key])
+        else:
+            print("** no instance found **")
