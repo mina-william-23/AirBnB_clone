@@ -15,7 +15,9 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
-    valid_classes = ["BaseModel", "User", "Place", "State", "Amenity", "Review", "City"]
+    valid_classes = ["BaseModel", "User", "Place",
+                     "State", "Amenity", "Review", "City"]
+
     def __init__(self):
         """ HBNB constructor """
         super().__init__()
