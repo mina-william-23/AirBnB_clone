@@ -61,8 +61,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
             else:
                 print("** class doesn't exist **")
-        elif len(args) == 2 and args[0] in valid_classes:
-            key = ".".join(args)
+        elif  args[0] in valid_classes:
+            key = ".".join([args[0], args[1]])
             dc = models.storage.all()
             if key in dc:
                 print(dc[key])
