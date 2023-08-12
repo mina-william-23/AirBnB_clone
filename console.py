@@ -9,7 +9,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-import models
+from models import storage
 # from helper import valid_classes
 
 
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         elif args[0] in HBNBCommand.valid_classes:
             key = ".".join([args[0], args[1]])
-            dc = models.storage.all()
+            dc = storage.all()
             if key in dc:
                 print(dc[key])
             else:
@@ -84,10 +84,10 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         elif args[0] in HBNBCommand.valid_classes:
             key = ".".join(args)
-            dc = models.storage.all()
+            dc = storage.all()
             if key in dc:
                 del dc[key]
-                models.storage.save()
+                storage.save()
             else:
                 print("** no instance found **")
 
@@ -97,12 +97,12 @@ class HBNBCommand(cmd.Cmd):
         all instances based or not on the class name
         """
         if not line:
-            dc = models.storage.all()
+            dc = storage.all()
             li = [value.__str__() for value in dc.values()]
             print(li)
         else:
             if line in HBNBCommand.valid_classes:
-                dc = models.storage.all()
+                dc = storage.all()
                 li = []
                 for value in dc.values():
                     if value.__class__.__name__ == line:
@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         elif length >= 2:
             key = ".".join(args[:2])
-            dc = models.storage.all()
+            dc = storage.all()
             if key in dc:
                 try:
                     if args[2]:
