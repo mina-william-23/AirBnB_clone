@@ -74,7 +74,7 @@ class BaseModel:
         name = cls.__name__
         key = ".".join([name, id])
         dc = models.storage.all()
-        if dc[key]:
+        if key in dc:
             print(dc[key])
         else:
             print("** no instance found **")
