@@ -2,4 +2,4 @@
 """ helper modeul """
 
 
-valid_classes = ["BaseModel", "User"]
+valid_classes = ["BaseModel", "User", "Place", "State", "Amenity", "Review", "City"]
