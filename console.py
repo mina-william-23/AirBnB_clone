@@ -38,7 +38,8 @@ class HBNBCommand(cmd.Cmd):
         elif obj_name not in valid_classes:
             print("** class doesn't exist **")
         else:
-            instance = globals()[obj_name]()
+            # instance = globals()[obj_name]()
+            instance = eval(obj_name)()
             instance.save()
             print(instance.id)
 
