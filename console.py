@@ -125,25 +125,25 @@ class HBNBCommand(cmd.Cmd):
     #         else:
     #             print("** no instance found **")
 
-    def do_all(self, line):
-        """
-        Prints all string representation of
-        all instances based or not on the class name
-        """
-        if not line:
-            dc = storage.all()
-            li = [value.__str__() for value in dc.values()]
-            print(li)
-        else:
-            if line in HBNBCommand.valid_classes:
-                dc = storage.all()
-                li = []
-                for value in dc.values():
-                    if value.__class__.__name__ == line:
-                        li.append(value.__str__())
-                print(li)
-            else:
-                print("** class doesn't exist **")
+    # def do_all(self, line):
+    #     """
+    #     Prints all string representation of
+    #     all instances based or not on the class name
+    #     """
+    #     if not line:
+    #         dc = storage.all()
+    #         li = [value.__str__() for value in dc.values()]
+    #         print(li)
+    #     else:
+    #         if line in HBNBCommand.valid_classes:
+    #             dc = storage.all()
+    #             li = []
+    #             for value in dc.values():
+    #                 if value.__class__.__name__ == line:
+    #                     li.append(value.__str__())
+    #             print(li)
+    #         else:
+    #             print("** class doesn't exist **")
 
     # def do_update(self, line):
     #     """Updates an instance based on the class name and id"""
@@ -212,6 +212,39 @@ class HBNBCommand(cmd.Cmd):
                 if ob_name == args[0]:
                     list_instances += [value.__str__()]
             print(list_instances)
+
+    def do_update(self, arg):
+        """ Updates an instance based on the class name and id """
+
+        if not arg:
+            print("** class name missing **")
+            return
+
+        # a = ""
+        # for argv in arg.split(','):
+        #     a = a + argv
+
+        # args = shlex.split(a)
+        args = arg.split()
+        if args[0] not in HBNBCommand.valid_classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            all_objs = storage.all()
+            for key, objc in all_objs.items():
+                ob_name = objc.__class__.__name__
+                ob_id = objc.id
+                if ob_name == args[0] and ob_id == args[1].strip('"'):
+                    if len(args) == 2:
+                        print("** attribute name missing **")
+                    elif len(args) == 3:
+                        print("** value missing **")
+                    else:
+                        setattr(objc, args[2], args[3])
+                        storage.save()
+                    return
+            print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
