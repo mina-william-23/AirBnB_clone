@@ -72,14 +72,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = line.split(' ')
-
-        if len(args) == 1:
-            if args[0] in HBNBCommand.l_classes:
-                print("** instance id missing **")
-            else:
-                print("** class doesn't exist **")
-
-        elif  args[0] in HBNBCommand.l_classes:
+        if args[0] not in HBNBCommand.l_classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif args[0] in HBNBCommand.l_classes:
             key = ".".join([args[0], args[1]])
             dc = storage.all()
             if key in dc:
