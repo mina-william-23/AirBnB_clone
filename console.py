@@ -38,6 +38,39 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    # def do_create(self, obj_name):
+    #     """Creates a new instance of BaseModel"""
+    #     if not obj_name:
+    #         print("** class name missing **")
+    #     elif obj_name not in HBNBCommand.valid_classes:
+    #         print("** class doesn't exist **")
+    #     else:
+    #         # instance = globals()[obj_name]()
+    #         instance = eval(obj_name)()
+    #         instance.save()
+    #         print(instance.id)
+
+    # def do_show(self, line):
+    #     """
+    #     Prints the string representation of
+    #     an instance based on the class name and id
+    #     """
+    #     if not line:
+    #         print("** class name missing **")
+    #         return
+
+    #     args = line.split(' ')
+    #     if args[0] not in HBNBCommand.valid_classes:
+    #         print("** class doesn't exist **")
+    #     elif len(args) == 1:
+    #         print("** instance id missing **")
+    #     elif args[0] in HBNBCommand.valid_classes:
+    #         key = ".".join([args[0], args[1]])
+    #         dc = storage.all()
+    #         if key in dc:
+    #             print(dc[key])
+    #         else:
+    #             print("** no instance found **")
     def do_create(self, obj_name):
         """Creates a new instance of BaseModel"""
         if not obj_name:
