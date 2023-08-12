@@ -57,7 +57,7 @@ class BaseModel:
         dc = models.storage.all()
         for value in dc.values():
             if value.__class__.__name__ == name:
-                cnt+=1
+                cnt += 1
         print(cnt)
 
     @classmethod
@@ -65,7 +65,10 @@ class BaseModel:
         """ all return all created instances of cls in storage instance """
         name = cls.__name__
         dc = models.storage.all()
-        li = [value.__str__() for value in dc.values() if value.__class__.__name__ == name]
+        li = []
+        for value in dc.values():
+            if value.__class__.__name__ == name:
+                li.append(value.__str__())
         print(li)
 
     @classmethod
@@ -76,5 +79,17 @@ class BaseModel:
         dc = models.storage.all()
         if key in dc:
             print(dc[key])
+        else:
+            print("** no instance found **")
+
+    @classmethod
+    def destroy(cls, id):
+        """ destrory instance with id in stoarge objects list """
+        name = cls.__name__
+        key = ".".join([name, id])
+        dc = models.storage.all()
+        if key in dc:
+            del dc[key]
+            models.storage.save()
         else:
             print("** no instance found **")
