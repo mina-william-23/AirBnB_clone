@@ -140,6 +140,14 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
+    def default(self, line):
+        """ default action if command not valie """
+        try:
+            eval(line)
+            # print(f"Result: {exec_result}")
+        except Exception as e:
+            print(f"Error: {e}")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

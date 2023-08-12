@@ -48,3 +48,14 @@ class BaseModel:
         class_name = self.__class__.__name__
         dc = {key: value for key, value in self.__dict__.items() if value}
         return "[{}] ({}) {}".format(class_name, self.id, dc)
+
+    @classmethod
+    def count(cls):
+        """ count class method to count class in objects in storage class """
+        cnt = 0
+        name = cls.__name__
+        dc = models.storage.all()
+        for value in dc.values():
+            if value.__class__.__name__ == name:
+                cnt+=1
+        print(cnt)
