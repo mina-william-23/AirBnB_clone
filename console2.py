@@ -116,11 +116,10 @@ class HBNBCommand(cmd.Cmd):
         length = len(args)
         if not args:
             print("** class name missing **")
-        elif length == 1:
-            if args[0] in valid_classes:
-                print("** instance id missing **")
-            else:
+        elif args[0] not in valid_classes:
                 print("** class doesn't exist **")
+        elif len(args) == 1:
+                print("** instance id missing **")
         elif length >= 2:
             key = ".".join(args[:2])
             dc = models.storage.all()

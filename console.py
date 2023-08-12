@@ -143,38 +143,66 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
-    def do_update(self, arg):
-        """ Updates an instance based on the class name and id """
+    # def do_update(self, arg):
+    #     """ Updates an instance based on the class name and id """
 
-        if not arg:
+    #     if not arg:
+    #         print("** class name missing **")
+    #         return
+
+    #     # a = ""
+    #     # for argv in arg.split(','):
+    #     #     a = a + argv
+
+    #     # args = shlex.split(a)
+    #     args = arg.split()
+    #     if args[0] not in HBNBCommand.l_classes:
+    #         print("** class doesn't exist **")
+    #     elif len(args) == 1:
+    #         print("** instance id missing **")
+    #     else:
+    #         all_objs = storage.all()
+    #         for key, objc in all_objs.items():
+    #             ob_name = objc.__class__.__name__
+    #             ob_id = objc.id
+    #             if ob_name == args[0] and ob_id == args[1].strip('"'):
+    #                 if len(args) == 2:
+    #                     print("** attribute name missing **")
+    #                 elif len(args) == 3:
+    #                     print("** value missing **")
+    #                 else:
+    #                     setattr(objc, args[2], args[3])
+    #                     storage.save()
+    #                 return
+    #         print("** no instance found **")
+    def do_update(self, line):
+        """Updates an instance based on the class name and id"""
+        args = line.split()
+        length = len(args)
+        if not args:
             print("** class name missing **")
-            return
-
-        # a = ""
-        # for argv in arg.split(','):
-        #     a = a + argv
-
-        # args = shlex.split(a)
-        args = arg.split()
-        if args[0] not in HBNBCommand.l_classes:
-            print("** class doesn't exist **")
+        elif args[0] not in HBNBCommand.l_classes:
+                print("** class doesn't exist **")
         elif len(args) == 1:
-            print("** instance id missing **")
-        else:
-            all_objs = storage.all()
-            for key, objc in all_objs.items():
-                ob_name = objc.__class__.__name__
-                ob_id = objc.id
-                if ob_name == args[0] and ob_id == args[1].strip('"'):
-                    if len(args) == 2:
-                        print("** attribute name missing **")
-                    elif len(args) == 3:
-                        print("** value missing **")
-                    else:
-                        setattr(objc, args[2], args[3])
-                        storage.save()
-                    return
-            print("** no instance found **")
+                print("** instance id missing **")
+        elif length >= 2:
+            key = ".".join(args[:2])
+            dc = storage.all()
+            if key in dc:
+                try:
+                    if args[2]:
+                        try:
+                            if args[3]:
+                                if type(eval(args[3])) in [str, int, float]:
+                                    dc[key].__setattr__(args[2], eval(args[3]))
+                                    dc[key].save()
+                        except IndexError:
+                            print("** value missing **")
+                except IndexError:
+                    print("** attribute name missing **")
+            else:
+                print("** no instance found **")
+
 
     def do_quit(self, line):
         """ Quit command to exit the command interpreter """
