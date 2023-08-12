@@ -105,25 +105,25 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
-        args = line.split()
-        if not args:
-            print("** class name missing **")
-            return
+    # def do_destroy(self, line):
+    #     """Deletes an instance based on the class name and id"""
+    #     args = line.split()
+    #     if not args:
+    #         print("** class name missing **")
+    #         return
 
-        if args[0] not in HBNBCommand.valid_classes:
-            print("** class doesn't exist **")
-        elif len(args) == 1:
-            print("** instance id missing **")
-        elif args[0] in HBNBCommand.valid_classes:
-            key = ".".join(args)
-            dc = storage.all()
-            if key in dc:
-                del dc[key]
-                storage.save()
-            else:
-                print("** no instance found **")
+    #     if args[0] not in HBNBCommand.valid_classes:
+    #         print("** class doesn't exist **")
+    #     elif len(args) == 1:
+    #         print("** instance id missing **")
+    #     elif args[0] in HBNBCommand.valid_classes:
+    #         key = ".".join(args)
+    #         dc = storage.all()
+    #         if key in dc:
+    #             del dc[key]
+    #             storage.save()
+    #         else:
+    #             print("** no instance found **")
 
     def do_all(self, line):
         """
@@ -145,34 +145,73 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
-    def do_update(self, line):
-        """Updates an instance based on the class name and id"""
+    # def do_update(self, line):
+    #     """Updates an instance based on the class name and id"""
+    #     args = line.split()
+    #     length = len(args)
+    #     if not args:
+    #         print("** class name missing **")
+    #     elif args[0] not in HBNBCommand.valid_classes:
+    #         print("** class doesn't exist **")
+    #     elif len(args) == 1:
+    #         print("** instance id missing **")
+    #     elif length >= 2:
+    #         key = ".".join(args[:2])
+    #         dc = storage.all()
+    #         if key in dc:
+    #             try:
+    #                 if args[2]:
+    #                     try:
+    #                         if args[3]:
+    #                             if type(eval(args[3])) in [str, int, float]:
+    #                                 dc[key].__setattr__(args[2], eval(args[3]))
+    #                                 dc[key].save()
+    #                     except IndexError:
+    #                         print("** value missing **")
+    #             except IndexError:
+    #                 print("** attribute name missing **")
+    #         else:
+    #             print("** no instance found **")
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
         args = line.split()
-        length = len(args)
         if not args:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.valid_classes:
-            print("** class doesn't exist **")
+            return
+
+        if args[0] not in HBNBCommand.valid_classes:
+                print("** class doesn't exist **")
         elif len(args) == 1:
-            print("** instance id missing **")
-        elif length >= 2:
-            key = ".".join(args[:2])
+                print("** instance id missing **")
+        elif args[0] in HBNBCommand.valid_classes:
+            key = ".".join(args)
             dc = storage.all()
             if key in dc:
-                try:
-                    if args[2]:
-                        try:
-                            if args[3]:
-                                if type(eval(args[3])) in [str, int, float]:
-                                    dc[key].__setattr__(args[2], eval(args[3]))
-                                    dc[key].save()
-                        except IndexError:
-                            print("** value missing **")
-                except IndexError:
-                    print("** attribute name missing **")
+                del dc[key]
+                storage.save()
             else:
                 print("** no instance found **")
 
+    def do_all(self, arg):
+        """ Prints string represention of all instances of a given class """
+
+        if not arg:
+            print("** class name missing **")
+            return
+
+        args = arg.split(' ')
+
+        if args[0] not in HBNBCommand.valid_classes:
+            print("** class doesn't exist **")
+        else:
+            all_objs = storage.all()
+            list_instances = []
+            for key, value in all_objs.items():
+                ob_name = value.__class__.__name__
+                if ob_name == args[0]:
+                    list_instances += [value.__str__()]
+            print(list_instances)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
