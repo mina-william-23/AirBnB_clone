@@ -50,20 +50,17 @@ class HBNBCommand(cmd.Cmd):
                 count = count + 1
         print(count)
 
-    def do_create(self, type_model):
-        """ Creates an instance according to a given class """
-
-        if not type_model:
+    def do_create(self, obj_name):
+        """Creates a new instance of BaseModel"""
+        if not obj_name:
             print("** class name missing **")
-        elif type_model not in HBNBCommand.l_classes:
+        elif obj_name not in HBNBCommand.l_classes:
             print("** class doesn't exist **")
         else:
-            dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                   'City': City, 'Amenity': Amenity, 'State': State,
-                   'Review': Review}
-            my_model = dct[type_model]()
-            print(my_model.id)
-            my_model.save()
+            # instance = globals()[obj_name]()
+            instance = eval(obj_name)()
+            instance.save()
+            print(instance.id)
 
     def do_show(self, arg):
         """ Shows string representation of an instance passed """
