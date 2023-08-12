@@ -76,12 +76,15 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
         elif len(args) == 2 and args[0] in HBNBCommand.l_classes:
-            key = ".".join([args[0], args[1].strip('"')])
-            dc = storage.all()
-            if key in dc:
-                print(dc[key])
-            else:
-                print("** no instance found **")
+            all_objs = storage.all()
+            for key, value in all_objs.items():
+                ob_name = value.__class__.__name__
+                ob_id = value.id
+                if ob_name == args[0] and ob_id == args[1].strip('"'):
+                    print(value)
+                    return
+            print("** no instance found **")
+
 
     def do_destroy(self, arg):
         """ Deletes an instance passed """
