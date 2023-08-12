@@ -2,37 +2,25 @@
 """ console module """
 
 import cmd
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
-from models.state import State
+from models.place import Place
 from models.city import City
 from models.amenity import Amenity
-from models.place import Place
+from models.state import State
 from models.review import Review
-from models import storage
-# from helper import valid_classes
 
 
 class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
     valid_classes = ["BaseModel", "User", "Place",
                      "State", "Amenity", "Review", "City"]
-    l_c = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
     def __init__(self):
         """ HBNB constructor """
         super().__init__()
         self.prompt = '(hbnb) '
-
-    def precmd(self, arg):
-        """parses command input"""
-        if '.' in arg and '(' in arg and ')' in arg:
-            cls = arg.split('.')
-            cnd = cls[1].split('(')
-            args = cnd[1].split(')')
-            if cls[0] in HBNBCommand.valid_classes and cnd[0] in HBNBCommand.l_c:
-                arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
-        return arg
 
     def do_EOF(self, line):
         """ EOF function """
