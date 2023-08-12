@@ -17,6 +17,7 @@ class HBNBCommand(cmd.Cmd):
     """ subclass of Cmd class """
     valid_classes = ["BaseModel", "User", "Place",
                      "State", "Amenity", "Review", "City"]
+    l_c = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
     def __init__(self):
         """ HBNB constructor """
@@ -29,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
             cls = arg.split('.')
             cnd = cls[1].split('(')
             args = cnd[1].split(')')
-            if cls[0] in HBNBCommand.l_classes and cnd[0] in HBNBCommand.l_c:
+            if cls[0] in HBNBCommand.valid_classes and cnd[0] in HBNBCommand.l_c:
                 arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
         return arg
 
