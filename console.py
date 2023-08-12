@@ -104,25 +104,44 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_all(self, arg):
-        """ Prints string represention of all instances of a given class """
+    # def do_all(self, arg):
+    #     """ Prints string represention of all instances of a given class """
 
-        if not arg:
-            print("** class name missing **")
-            return
+    #     if not arg:
+    #         print("** class name missing **")
+    #         return
 
-        args = arg.split(' ')
+    #     args = arg.split(' ')
 
-        if args[0] not in HBNBCommand.l_classes:
-            print("** class doesn't exist **")
+    #     if args[0] not in HBNBCommand.l_classes:
+    #         print("** class doesn't exist **")
+    #     else:
+    #         all_objs = storage.all()
+    #         list_instances = []
+    #         for key, value in all_objs.items():
+    #             ob_name = value.__class__.__name__
+    #             if ob_name == args[0]:
+    #                 list_instances += [value.__str__()]
+    #         print(list_instances)
+    def do_all(self, line):
+        """
+        Prints all string representation of
+        all instances based or not on the class name
+        """
+        if not line:
+            dc = storage.all()
+            li = [value.__str__() for value in dc.values()]
+            print(li)
         else:
-            all_objs = storage.all()
-            list_instances = []
-            for key, value in all_objs.items():
-                ob_name = value.__class__.__name__
-                if ob_name == args[0]:
-                    list_instances += [value.__str__()]
-            print(list_instances)
+            if line in HBNBCommand.l_classes:
+                dc = storage.all()
+                li = []
+                for value in dc.values():
+                    if value.__class__.__name__ == line:
+                        li.append(value.__str__())
+                print(li)
+            else:
+                print("** class doesn't exist **")
 
     def do_update(self, arg):
         """ Updates an instance based on the class name and id """
