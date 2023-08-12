@@ -5,8 +5,7 @@ import cmd
 from models.base_model import BaseModel
 from models.user import User
 import models
-
-valid_classes = ["BaseModel", "User"]
+from helper import valid_classes
 
 
 class HBNBCommand(cmd.Cmd):
