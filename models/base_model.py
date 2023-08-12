@@ -59,3 +59,11 @@ class BaseModel:
             if value.__class__.__name__ == name:
                 cnt+=1
         print(cnt)
+
+    @classmethod
+    def all(cls):
+        """ all return all created instances of cls in storage instance """
+        name = cls.__name__
+        dc = models.storage.all()
+        li = [value.__str__() for value in dc.values() if value.__class__.__name__ == name]
+        print(li)
