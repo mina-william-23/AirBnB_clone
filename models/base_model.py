@@ -95,12 +95,23 @@ class BaseModel:
             print("** no instance found **")
 
     @classmethod
-    def update(cls, id, *args, **kwargs):
-        """update instance with id and args or kwargs"""
+    def update(cls, id, *args):
+        """update instance with id and args"""
         name = cls.__name__
         key = ".".join([name, id])
         dc = models.storage.all()
         if key in dc:
-            if (args and len(args) >= 2):
-                setattr(dc[key], args[0], args[1])
-                
+            if not args:
+                print("** attribute name missing **")
+            if (args):
+                if type(args[0]) is dict:
+                    for k, v in args[0].items():
+                        setattr(dc[key], k, v)
+                        models.storage.save()
+                elif len(args) >= 2:
+                    setattr(dc[key], args[0], args[1])
+                    models.storage.save()
+                else:
+                    print("** value missing **")
+        else:
+            print("** no instance found **")
