@@ -26,6 +26,12 @@ class Test_FileStorage_instantiation(unittest.TestCase):
     def test_instance(self):
         fs = FileStorage()
         self.assertIsInstance(fs, FileStorage)
+        
+    def test_path_is_private_str(self):
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
+    def test_objects_is_private_dict(self):
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
 
 class Test_FileStorage_all(unittest.TestCase):
     """ test fun all in filestorage class """
