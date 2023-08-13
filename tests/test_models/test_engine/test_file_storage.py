@@ -36,6 +36,25 @@ class Test_FileStorage_instantiation(unittest.TestCase):
 class Test_FileStorage_all(unittest.TestCase):
     """ test fun all in filestorage class """
 
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
+
     def test_all(self):
         fs = FileStorage()
         self.assertIsInstance(fs.all(), dict)
