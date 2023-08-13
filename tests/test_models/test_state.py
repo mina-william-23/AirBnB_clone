@@ -50,7 +50,7 @@ class Test_State_instantiation(unittest.TestCase):
     def test_instance_datetime_updatedate(self):
         self.assertIsInstance(State().updated_at, datetime)
 
-    def test_instance_email(self):
+    def test_instance_name(self):
         stt = State()
         self.assertIsInstance(stt.name, str)
         self.assertEqual(stt.name, "")
