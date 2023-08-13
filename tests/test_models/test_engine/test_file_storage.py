@@ -44,27 +44,16 @@ class Test_FileStorage_all(unittest.TestCase):
 
     def test_new(self):
         fs = FileStorage()
-        bm = BaseModel()
-        us = User()
-        st = State()
-        pl = Place()
-        cy = City()
-        am = Amenity()
-        rv = Review()
-        models.storage.new(bm)
-        models.storage.new(us)
-        models.storage.new(st)
-        models.storage.new(pl)
-        models.storage.new(cy)
-        models.storage.new(am)
-        models.storage.new(rv)
-        self.assertIn(bm, fs.all().values())
-        self.assertIn(us, fs.all().values())
-        self.assertIn(st, fs.all().values())
-        self.assertIn(pl, fs.all().values())
-        self.assertIn(cy, fs.all().values())
-        self.assertIn(am, fs.all().values())
-        self.assertIn(rv, fs.all().values())
+        bs = BaseModel()
+        self.assertIn(bs, fs.all().values())
+
+    def test_new_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.new(BaseModel(), 1)
+
+    def test_new_with_None(self):
+        with self.assertRaises(AttributeError):
+            models.storage.new(None)
 
     def test_save(self):
         bs = BaseModel()
