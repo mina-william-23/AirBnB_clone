@@ -93,3 +93,14 @@ class BaseModel:
             models.storage.save()
         else:
             print("** no instance found **")
+
+    @classmethod
+    def update(cls, id, *args, **kwargs):
+        """update instance with id and args or kwargs"""
+        name = cls.__name__
+        key = ".".join([name, id])
+        dc = models.storage.all()
+        if key in dc:
+            if (args and len(args) >= 2):
+                setattr(dc[key], args[0], args[1])
+                
