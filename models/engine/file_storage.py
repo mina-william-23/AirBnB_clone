@@ -46,6 +46,5 @@ class FileStorage:
                 obj = FileStorage.__objects
                 for key, value in dc.items():
                     obj[key] = eval(value['__class__'])(**value)
-                    #obj[key] = eval(value['__class__'])(**value)
         except Exception:
             pass
