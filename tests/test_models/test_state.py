@@ -8,10 +8,9 @@ import models
 import unittest
 from datetime import datetime
 from models.state import State
-from models.user import User
 
 class Test_State_instantiation(unittest.TestCase):
-    """test instantiation of the User class."""
+    """test instantiation of the State class."""
 
     def test_istance_not_none(self):
         self.assertIsNotNone(State())
