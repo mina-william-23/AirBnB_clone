@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines unittests for models/base_model.py.
+"""Defines unittests for models/user.py.
 """
 import os
 import io
@@ -7,9 +7,7 @@ import sys
 import models
 import unittest
 from datetime import datetime
-# from time import sleep
 from models.user import User
-from models.base_model import BaseModel
 
 
 class TestUser_instantiation(unittest.TestCase):
@@ -18,7 +16,7 @@ class TestUser_instantiation(unittest.TestCase):
     def test_istance_not_none(self):
         self.assertIsNotNone(User())
 
-    def test_istance_of_basemodel(self):
+    def test_istance_of_user(self):
         self.assertIsInstance(User(), User)
 
     def test_instace_with_kwargs(self):
