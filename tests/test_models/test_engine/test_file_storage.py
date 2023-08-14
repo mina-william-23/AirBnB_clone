@@ -68,7 +68,7 @@ class Test_FileStorage_all(unittest.TestCase):
         bs = BaseModel()
         self.assertIn(bs, fs.all().values())
 
-    def test_save(self):
+    def test_save_method(self):
         bs = BaseModel()
         key = ".".join([bs.__class__.__name__, bs.id])
         models.storage.save()
@@ -76,7 +76,7 @@ class Test_FileStorage_all(unittest.TestCase):
             rd = json.load(f)
             self.assertIn(key, rd)
 
-    def test_save2(self):
+    def test_save_method_update(self):
         b_m_c = BaseModel()
         u_s_c = User()
         s_t_c = State()
@@ -103,11 +103,11 @@ class Test_FileStorage_all(unittest.TestCase):
             self.assertIn("Amenity." + a_m_c.id, save_text)
             self.assertIn("Review." + r_v_c.id, save_text)
 
-    def test_save_with_arg(self):
+    def test_save_method_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.save(None)
 
-    def test_reload(self):
+    def test_reload_method(self):
         b_m_c = BaseModel()
         u_s_c = User()
         s_t_c = State()
@@ -133,7 +133,7 @@ class Test_FileStorage_all(unittest.TestCase):
         self.assertIn("Amenity." + a_m_c.id, objs)
         self.assertIn("Review." + r_v_c.id, objs)
 
-    def test_reload_with_arg(self):
+    def test_reload_method_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 
