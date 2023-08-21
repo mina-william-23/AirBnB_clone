@@ -10,6 +10,10 @@
     justify-content: center;
 }
 
+.container .places ul li{
+    display: flex;
+}
+
 .container .places ul li article { 
     width: 390px;
     padding: 20px;
